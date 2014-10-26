@@ -23,15 +23,16 @@ def recode2ogg(fname):
     metadataname = name + '.txt'
     os.system('ffmpeg -i "' + fname + '" -f ffmetadata "' + metadataname + '"')
     outname = name + '.ogg'
-    os.system('ffmpeg -i "' + fname + '" -f wav - | oggenc -q6 - > "' + outname + '"')
+    str_decode = 'ffmpeg -i "' + fname + '" -f wav - '
+    os.system(str_decode + '| oggenc -q6 - > "' + outname + '"')
     os.system('vorbiscomment -a "' + outname + '" -c "' + metadataname + '"')
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Recodes given audion to OGG Vorbisi')
+        description='Recodes given audion to asked format')
     parser.add_argument(
-        'fname', metavar='audio_filr_names', type=str, nargs='+',
+        'fname', metavar='audio_file_names', type=str, nargs='+',
         help='files to recode')
     cmd_args = parser.parse_args()
 
